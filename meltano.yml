@@ -1,0 +1,26 @@
+version: 1
+send_anonymous_usage_stats: true
+project_id: 4748b81c-e18d-4461-b560-0e6794377fe7
+plugins:
+  extractors:
+  - name: tap-degreed
+    namespace: tap_degreed
+    executable: ./tap-degreed.sh
+    capabilities:
+    - state
+    - catalog
+    - discover
+    settings:
+    - name: client_id
+    - name: client_secret
+      kind: password
+    - name: start_date
+      value: '2018-01-01T00:00:00Z'
+    config:
+      start_date: '2018-01-01T00:00:00Z'
+      client_id: ${DEGREED_CLIENT_ID}
+      client_secret: ${DEGREED_CLIENT_SECRET}
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
