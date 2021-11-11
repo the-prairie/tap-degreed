@@ -19,10 +19,9 @@ from singer_sdk.typing import (
 
 from tap_degreed.client import DegreedStream
 
-# TODO: Delete this is if not using json files for schema definition
+
 SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
-# TODO: - Override `UsersStream` and `GroupsStream` with your own stream definition.
-#       - Copy-paste as many times as needed to create multiple stream types.
+
 
 # rearrange for targets like BigQuery
 def rearrange_schema(schema: dict):
@@ -46,47 +45,47 @@ class UsersStream(DegreedStream):
     #replication_key = "$attributes.last-login-at"
     
     # Optionally, you may also use `schema_filepath` in place of `schema`:
-    # schema_filepath = SCHEMAS_DIR / "users.json"
-    schema = rearrange_schema(
-    PropertiesList(
-        Property("type", StringType),
-        Property("id", StringType),
-        Property("attributes", 
-                    ObjectType(
-                        Property("employee-id", StringType),
-                        Property("first-name", StringType),
-                        Property("last-name", StringType),
-                        Property("full-name", StringType),
-                        Property("organization-email", StringType),
-                        Property("personal-email", StringType),
-                        Property("profile-visibility", StringType),
-                        Property("bio", StringType),
-                        Property("location", StringType),
-                        Property("profile-image-url", StringType),
-                        Property("login-disabled", BooleanType),
-                        Property("restricted", BooleanType),
-                        Property("permission-role", StringType),
-                        Property("real-time-email-notification", BooleanType),
-                        Property("daily-digest-email", BooleanType),
-                        Property("weekly-digest-email", BooleanType),
-                        Property("created-at", DateTimeType),
-                        Property("first-login-at", DateTimeType),
-                        Property("last-login-at", DateTimeType),
-                        Property("total-points", NumberType),
-                        Property("daily-logins", IntegerType)
-                    )),
-        Property("relationships", 
-                    ArrayType(
-                        ObjectType(
-                            Property("manager", ObjectType(
-                                Property("data", ObjectType(
-                                    Property("id", StringType),
-                                    Property("type", StringType)
-                                ))
-                            ))
+    schema_filepath = SCHEMAS_DIR / "users.json"
+    # schema = rearrange_schema(
+    # PropertiesList(
+    #     Property("type", StringType),
+    #     Property("id", StringType),
+    #     Property("attributes", 
+    #                 ObjectType(
+    #                     Property("employee-id", StringType),
+    #                     Property("first-name", StringType),
+    #                     Property("last-name", StringType),
+    #                     Property("full-name", StringType),
+    #                     Property("organization-email", StringType),
+    #                     Property("personal-email", StringType),
+    #                     Property("profile-visibility", StringType),
+    #                     Property("bio", StringType),
+    #                     Property("location", StringType),
+    #                     Property("profile-image-url", StringType),
+    #                     Property("login-disabled", BooleanType),
+    #                     Property("restricted", BooleanType),
+    #                     Property("permission-role", StringType),
+    #                     Property("real-time-email-notification", BooleanType),
+    #                     Property("daily-digest-email", BooleanType),
+    #                     Property("weekly-digest-email", BooleanType),
+    #                     Property("created-at", DateTimeType),
+    #                     Property("first-login-at", DateTimeType),
+    #                     Property("last-login-at", DateTimeType),
+    #                     Property("total-points", NumberType),
+    #                     Property("daily-logins", IntegerType)
+    #                 )),
+    #     Property("relationships", 
+    #                 ArrayType(
+    #                     ObjectType(
+    #                         Property("manager", ObjectType(
+    #                             Property("data", ObjectType(
+    #                                 Property("id", StringType),
+    #                                 Property("type", StringType)
+    #                             ))
+    #                         ))
 
-                    )))
-    ).to_dict())
+    #                 )))
+    # ).to_dict())
 
     def get_url_params(
             self, context: Optional[dict], next_page_token: Optional[Any]
@@ -95,52 +94,85 @@ class UsersStream(DegreedStream):
         
         return params
 
-# class CompletionsStream(DegreedStream):
-#     name = "completions"
-#     path = "/completions"
-#     primary_keys = ["id"]
-#     replication_key = "completed-at"
+class CompletionsStream(DegreedStream):
+    name = "completions"
+    path = "/completions"
+    primary_keys = ["id"]
+    #replication_key = "completed-at"
 
-#     schema = rearrange_schema(
-#     PropertiesList(
-#         Property("type", StringType),
-#         Property("id", StringType),
-#         Property("attributes", 
-#                     ObjectType(
-#                         Property("employee-id", StringType),
-#                         Property("first-name", StringType),
-#                         Property("last-name", StringType),
-#                         Property("full-name", StringType),
-#                         Property("organization-email", StringType),
-#                         Property("personal-email", StringType),
-#                         Property("profile-visibility", StringType),
-#                         Property("bio", StringType),
-#                         Property("location", StringType),
-#                         Property("profile-image-url", StringType),
-#                         Property("login-disabled", BooleanType),
-#                         Property("restricted", BooleanType),
-#                         Property("permission-role", StringType),
-#                         Property("real-time-email-notification", BooleanType),
-#                         Property("daily-digest-email", BooleanType),
-#                         Property("weekly-digest-email", BooleanType),
-#                         Property("created-at", DateTimeType),
-#                         Property("first-login-at", DateTimeType),
-#                         Property("last-login-at", DateTimeType),
-#                         Property("total-points", NumberType),
-#                         Property("daily-logins", IntegerType)
-#                     )),
-#         Property("relationships", 
-#                     ArrayType(
-#                         ObjectType(
-#                             Property("manager", ObjectType(
-#                                 Property("data", ObjectType(
-#                                     Property("id", StringType),
-#                                     Property("type", StringType)
-#                                 ))
-#                             ))
+    schema_filepath = SCHEMAS_DIR / "completions.json"
 
-#                     )))
-#     ).to_dict())
+    # schema = rearrange_schema(
+    # PropertiesList(
+    #     Property("type", StringType),
+    #     Property("id", StringType),
+    #     Property("attributes", 
+    #                 ObjectType(
+    #                     Property("employee-id", StringType),
+    #                     Property("completed-at", DateTimeType),
+    #                     Property("added-at", DateTimeType),
+    #                     Property("points-earned", NumberType),
+    #                     Property("is-verified", BooleanType),
+    #                     Property("rating", IntegerType),
+    #                     Property("access-method", StringType),
+    #                 )),
+    #     Property("relationships", 
+    #              ArrayType(ObjectType(
+    #                  Property("content", ObjectType(
+    #                      Property("data", ObjectType(
+    #                          Property("id", StringType),
+    #                          Property("type", StringType)
+    #             ))
+    #         ))
+    #     )),
+    #              ArrayType(ObjectType(
+    #                  Property("provider", ObjectType(
+    #                      Property("data", ObjectType(
+    #                          Property("id", StringType),
+    #                          Property("type", StringType)
+    #             ))
+    #         ))
+    #     )),
+    #             ArrayType(ObjectType(
+    #                  Property("user", ObjectType(
+    #                      Property("data", ObjectType(
+    #                          Property("id", StringType),
+    #                          Property("type", StringType)
+    #             ))
+    #         ))
+    #     )),
+    #     ),
+    #     Property("included", ArrayType(ObjectType(
+    #         Property("type", StringType),
+    #         Property("id", StringType),
+    #         Property("attributes", ObjectType(
+    #             Property("content-type", StringType),
+    #             Property("url", StringType),
+    #             Property("title", StringType),
+    #             Property("provider", StringType),
+    #             Property("content-duration", NumberType),
+    #             Property("content-duration-type", StringType),
+    #             Property("is-internal", BooleanType)))
+    #     )))
+                
+        
+
+    # ).to_dict())
+
+    def get_url_params(
+            self, context: Optional[dict], next_page_token: Optional[Any]
+    ) -> Dict[str, Any]:
+        params = super().get_url_params(context, next_page_token)
+        params["filter[start_date]"] = self.config["start_date"]
+        params["filter[end_date]"] = self.config["start_date"]
+
+        return params
+        
+
+
+
+
+
 
 
 # class AccomplishmentsStream(DegreedStream):
