@@ -17,7 +17,7 @@ plugins:
     - name: start_date
       value: '2018-01-01T00:00:00Z'
     config:
-      start_date: '2021-11-01'
+      start_date: '2021-10-01'
       client_id: ${TAP_DEGREED_CLIENT_ID}
       client_secret: ${TAP_DEGREED_CLIENT_SECRET}
     select:
@@ -26,6 +26,3 @@ plugins:
   - name: target-jsonl
     variant: andyh1203
     pip_url: target-jsonl
-  - name: target-bigquery
-    variant: adswerve
-    pip_url: git+https://github.com/adswerve/target-bigquery.git@v0.10.2
