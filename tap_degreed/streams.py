@@ -103,77 +103,87 @@ class CompletionsStream(DegreedStream):
 
     schema_filepath = SCHEMAS_DIR / "completions.json"
 
-    def prepare_request_payload(self, context: Optional[dict], next_page_token: Optional[Any], **kwargs: dict) -> Generator[dict, None, None]:
-        """ Get completions history.
+    def get_url_params(
+            self, context: Optional[dict], next_page_token: Optional[Any]
+    ) -> Dict[str, Any]:
+        params = super().get_url_params(context, next_page_token)
+        params["filter[start_date]"] = self.config["start_date"]
+        params["filter[end_date]"] = self.config["start_date"]
+    
         
-        Raises: 
-          ValueError: When parameter start_date is missing
+        return params
 
-        Yields:
-          Generator[dict]: Yields Degreed completions over time range
+    # def prepare_request_payload(self, context: Optional[dict], next_page_token: Optional[Any], **kwargs: dict) -> Generator[dict, None, None]:
+    #     """ Get completions history.
         
-        """
+    #     Raises: 
+    #       ValueError: When parameter start_date is missing
+
+    #     Yields:
+    #       Generator[dict]: Yields Degreed completions over time range
+        
+    #     """
 
         
 
-        #Validate start_date value
-        start_date_input: str = str(self.config['start_date'])
-        self.logger.info(f"Start date is {start_date_input}")
+    #     #Validate start_date value
+    #     start_date_input: str = str(self.config['start_date'])
+    #     self.logger.info(f"Start date is {start_date_input}")
 
-        if not start_date_input:
-            raise ValueError('Parameter start_date is required.')
+    #     if not start_date_input:
+    #         raise ValueError('Parameter start_date is required.')
         
-        # Set start date and end date
-        start_date: datetime = pendulum.parse(start_date_input)
-        end_date: datetime = pendulum.now('utc').replace(microsecond=0)
+    #     # Set start date and end date
+    #     start_date: datetime = pendulum.parse(start_date_input)
+    #     end_date: datetime = pendulum.now('utc').replace(microsecond=0)
 
-        self.logger.info(
-            f"Retrieving completions from {start_date.format('Y-M-D')} to {end_date.format('Y-M-D')}"
-        )
+    #     self.logger.info(
+    #         f"Retrieving completions from {start_date.format('Y-M-D')} to {end_date.format('Y-M-D')}"
+    #     )
 
-        # Extra kwargs will be converted to parameters in the API requests
-        # start_date is parsed into batches, thus we remove it from the kwargs
-        kwargs.pop('start_date', None)
+    #     # Extra kwargs will be converted to parameters in the API requests
+    #     # start_date is parsed into batches, thus we remove it from the kwargs
+    #     kwargs.pop('start_date', None)
 
-        # Maximum date range between start_date and end_date is 7 days
-        # Split requests into weekly batches
-        batches: range = (pendulum.period(start_date, end_date).range('weeks'))
+    #     # Maximum date range between start_date and end_date is 7 days
+    #     # Split requests into weekly batches
+    #     batches: range = (pendulum.period(start_date, end_date).range('weeks'))
 
-        current_batch: int = 0
-        # Batches contain all start_dates, the end_date is 6 days 23:59 later
-        # E.g. 2021-01-01T00:00:00+0000 <--> 2021-01-07T23:59:59+0000
-        for start_date_batch in batches:
-            end_date_batch: datetime = (
-                start_date_batch.add(days=7, seconds=-1)
-                )
+    #     current_batch: int = 0
+    #     # Batches contain all start_dates, the end_date is 6 days 23:59 later
+    #     # E.g. 2021-01-01T00:00:00+0000 <--> 2021-01-07T23:59:59+0000
+    #     for start_date_batch in batches:
+    #         end_date_batch: datetime = (
+    #             start_date_batch.add(days=7, seconds=-1)
+    #             )
             
             
-            # Prevent the end_date from going into the future
-            if end_date_batch > end_date:
-                end_date_batch = end_date
+    #         # Prevent the end_date from going into the future
+    #         if end_date_batch > end_date:
+    #             end_date_batch = end_date
             
-            # Convert the datetimes to datetime formats the api expects
-            start_date_str: str = start_date_batch.format('Y-M-D')
-            end_date_str: str = end_date_batch.format('Y-M-D')
+    #         # Convert the datetimes to datetime formats the api expects
+    #         start_date_str: str = start_date_batch.format('Y-M-D')
+    #         end_date_str: str = end_date_batch.format('Y-M-D')
             
-            current_batch += 1
+    #         current_batch += 1
         
-            self.logger.info(
-                f'Parsing batch {current_batch}: {start_date_str} <--> '
-                f'{end_date_str}',
-            )
+    #         self.logger.info(
+    #             f'Parsing batch {current_batch}: {start_date_str} <--> '
+    #             f'{end_date_str}',
+    #         )
 
-            payload = {
-                "limit": 1000,
-                "filter[start_date]": start_date_str,
-                "filter[end_date]": end_date_str
+    #         payload = {
+    #             "limit": 1000,
+    #             "filter[start_date]": start_date_str,
+    #             "filter[end_date]": end_date_str
 
-            }
+    #         }
 
-            if next_page_token:
-                payload["next"] = next_page_token
+    #         if next_page_token:
+    #             payload["next"] = next_page_token
             
-            return payload
+    #         return payload
         
 
         
