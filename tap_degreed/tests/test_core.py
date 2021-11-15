@@ -3,6 +3,9 @@
 import datetime
 
 import json
+import os
+
+
 
 with open('.secrets/config.json', 'r') as f:
     config = json.load(f)
@@ -12,9 +15,9 @@ from singer_sdk.testing import get_standard_tap_tests
 from tap_degreed.tap import TapDegreed
 
 SAMPLE_CONFIG = {
-    "start_date": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"),
-    "client_id": config['client_id'],
-    "client_secret": config['client_secret'],
+    "start_date": "2021-11-01",
+    "client_id":  config["TAP_DEGREED_CLIENT_ID"],
+    "client_secret": config["TAP_DEGREED_CLIENT_SECRET"],
     # Initialize minimal tap config
 }
 

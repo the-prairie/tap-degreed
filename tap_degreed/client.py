@@ -1,6 +1,8 @@
 """REST client handling, including degreedStream base class."""
 
 import requests
+import pendulum
+
 from pathlib import Path
 from typing import Any, Dict, Optional, Union, List, Iterable
 from urllib.parse import urljoin, urlparse, parse_qs
@@ -9,6 +11,7 @@ from memoization import cached
 
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
+import logging
 
 from tap_degreed.auth import DegreedAuthenticator
 
@@ -79,10 +82,23 @@ class DegreedStream(RESTStream):
         params["limit"] = 1000
             
         return params
+    
 
 
     def parse_response(self, response: requests.Response) -> Iterable[dict]:
         """Parse the response and return an iterator of result rows."""
         # TODO: Parse response body and return a set of records.
         yield from extract_jsonpath(self.records_jsonpath, input=response.json())
+
+    
+    def date_range(self, context: Optional[dict]) -> Iterable[str]:
+        if self.start_date:
+            start_date = self.start_date
+        else:
+            start_date = pendulum.now().add(days=-2).isoformat()
+            
+        end_date = pendulum.yesterday().isoformat()
+        
+        for n in range( int((pendulum.parse(end_date) - pendulum.parse(start_date)).days) ):
+            yield pendulum.parse(start_date).add(days=n).isoformat()
 

@@ -15,7 +15,7 @@ from singer_sdk.typing import (
 # TODO: Import your custom stream types here:
 from tap_degreed.streams import (
     UsersStream,
-    # CompletionsStream,
+    CompletionsStream,
     # AccomplishmentsStream,
     # PathwaysStream
 )
@@ -23,7 +23,7 @@ from tap_degreed.streams import (
 #       OR rewrite discover_streams() below with your custom logic.
 STREAM_TYPES = [
     UsersStream,
-    # CompletionsStream,
+    CompletionsStream,
     # AccomplishmentsStream,
     # PathwaysStream
 ]

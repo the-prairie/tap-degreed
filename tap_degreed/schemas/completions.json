@@ -1,0 +1,425 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id": "https://api.degreed.com/docs/#get-all-users",
+    "type": "object",
+    "examples": [
+        {
+            "type": "completions",
+            "id": "z49gvlE9",
+            "attributes": {
+                "employee-id": "E87958",
+                "completed-at": "2021-11-11T00:00:00",
+                "added-at": "2021-11-11T20:56:41.093",
+                "points-earned": "0.0643720",
+                "is-verified": false,
+                "rating": 0,
+                "access-method": "None"
+            },
+            "links": {
+                "self": "https://api.degreed.com/api/v2/completions/z49gvlE9"
+            },
+            "relationships": [
+                {
+                    "content": {
+                        "data": {
+                            "id": "z0AeVb6",
+                            "type": "content"
+                        }
+                    }
+                },
+                {
+                    "provider": {
+                        "data": {
+                            "id": "None",
+                            "type": "providers"
+                        }
+                    }
+                },
+                {
+                    "user": {
+                        "data": {
+                            "id": "Z0oN4Y",
+                            "type": "users"
+                        }
+                    }
+                }
+            ],
+            "included": [
+                {
+                    "type": "content",
+                    "id": "z0AeVb6",
+                    "attributes": {
+                        "content-type": "Article",
+                        "url": "https://sites.google.com/atb.com/retailcredit/recredit-blog/loan-to-value?authuser=0",
+                        "title": "Loan-to-Value",
+                        "provider": "None",
+                        "content-duration": 363,
+                        "content-duration-type": "None",
+                        "is-internal": "True"
+                    },
+                    "links": {
+                        "self": "https://api.degreed.com/api/v2/content/z0AeVb6"
+                    }
+                }
+            ]
+        }
+    ],
+    "properties": {
+        "type": {
+            "id": "#type",
+            "type": "string",
+            "examples": [
+                "completions"
+            ]
+        },
+        "id": {
+            "id": "#id",
+            "type": "string",
+            "examples": [
+                "z49gvlE9"
+            ]
+        },
+        "attributes": {
+            "id": "#attributes",
+            "type": "object",
+            "examples": [
+                {
+                    "employee-id": "E87958",
+                    "completed-at": "2021-11-11T00:00:00",
+                    "added-at": "2021-11-11T20:56:41.093",
+                    "points-earned": "0.0643720",
+                    "is-verified": false,
+                    "rating": 0,
+                    "access-method": "None"
+                }
+            ],
+            "properties": {
+                "employee-id": {
+                    "id": "#employee-id",
+                    "type": "string",
+                    "examples": [
+                        "E87958"
+                    ]
+                },
+                "completed-at": {
+                    "id": "#completed-at",
+                    "type": ["null", "string"],
+                    "format": "date-time",
+                    "examples": [
+                        "2021-11-11T00:00:00"
+                    ]
+                },
+                "added-at": {
+                    "id": "#added-at",
+                    "type": ["null", "string"],
+                    "format": "date-time",
+                    "examples": [
+                        "2021-11-11T20:56:41.093"
+                    ]
+                },
+                "points-earned": {
+                    "id": "#points-earned",
+                    "type": ["null", "string"],
+                    "format": "number",
+                    "examples": [
+                        "0.0643720"
+                    ]
+                },
+                "is-verified": {
+                    "id": "#is-verified",
+                    "type": ["null","boolean"],
+                    "examples": [
+                        false
+                    ]
+                },
+                "rating": {
+                    "id": "#rating",
+                    "type": ["null","integer"],
+                    "examples": [
+                        0
+                    ]
+                },
+                "access-method": {
+                    "id": "#access-method",
+                    "type": ["null", "string"],
+                    "examples": [
+                        "None"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "links": {
+            "id": "#links",
+            "type": "object",
+            "examples": [
+                {
+                    "self": "https://api.degreed.com/api/v2/completions/z49gvlE9"
+                }
+            ],
+            "properties": {
+                "self": {
+                    "id": "#self",
+                    "type": "string",
+                    "examples": [
+                        "https://api.degreed.com/api/v2/completions/z49gvlE9"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "relationships": {
+            "id": "#relationships",
+            "type": "array",
+            "examples": [
+                [
+                    {
+                        "content": {
+                            "data": {
+                                "id": "z0AeVb6",
+                                "type": "content"
+                            }
+                        }
+                    },
+                    {
+                        "provider": {
+                            "data": {
+                                "id": "None",
+                                "type": "providers"
+                            }
+                        }
+                    }
+                ]
+            ],
+            "items": {
+                "id": "#items",
+                "type": "object",
+                "examples": [
+                    [
+                        {
+                            "content": {
+                                "data": {
+                                    "id": "z0AeVb6",
+                                    "type": "content"
+                                }
+                            }
+                        },
+                        {
+                            "provider": {
+                                "data": {
+                                    "id": "None",
+                                    "type": "providers"
+                                }
+                            }
+                        },
+                        {
+                            "user": {
+                                "data": {
+                                    "id": "Z0oN4Y",
+                                    "type": "users"
+                                }
+                            }
+                        }
+                    ]
+                ],
+                "properties": {
+                    "content": {
+                        "id": "#content",
+                        "type": "object",
+                        "examples": [
+                            {
+                                "data": {
+                                    "id": "z0AeVb6",
+                                    "type": "content"
+                                }
+                            }
+                        ],
+                        "properties": {
+                            "data": {
+                                "id": "#data",
+                                "type": "object",
+                                "examples": [
+                                    {
+                                        "id": "z0AeVb6",
+                                        "type": "content"
+                                    }
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "id": "#id",
+                                        "type": "string",
+                                        "examples": [
+                                            "z0AeVb6"
+                                        ]
+                                    },
+                                    "type": {
+                                        "id": "#type",
+                                        "type": "string",
+                                        "examples": [
+                                            "content"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                },
+                "additionalProperties": true
+            }
+        },
+        "included": {
+            "id": "#included",
+            "type": "array",
+            "examples": [
+                [
+                    {
+                        "type": "content",
+                        "id": "z0AeVb6",
+                        "attributes": {
+                            "content-type": "Article",
+                            "url": "https://sites.google.com/atb.com/retailcredit/recredit-blog/loan-to-value?authuser=0",
+                            "title": "Loan-to-Value",
+                            "provider": "None",
+                            "content-duration": 363,
+                            "content-duration-type": "None",
+                            "is-internal": "True"
+                        },
+                        "links": {
+                            "self": "https://api.degreed.com/api/v2/content/z0AeVb6"
+                        }
+                    }
+                ]
+            ],
+            "items": {
+                "id": "#items",
+                "type": "object",
+                "examples": [
+                    [
+                        {
+                            "type": "content",
+                            "id": "z0AeVb6",
+                            "attributes": {
+                                "content-type": "Article",
+                                "url": "https://sites.google.com/atb.com/retailcredit/recredit-blog/loan-to-value?authuser=0",
+                                "title": "Loan-to-Value",
+                                "provider": "None",
+                                "content-duration": 363,
+                                "content-duration-type": "None",
+                                "is-internal": "True"
+                            },
+                            "links": {
+                                "self": "https://api.degreed.com/api/v2/content/z0AeVb6"
+                            }
+                        }
+                    ]
+                ],
+                "properties": {
+                    "type": {
+                        "id": "#type",
+                        "type": "string",
+                        "examples": [
+                            "content"
+                        ]
+                    },
+                    "id": {
+                        "id": "#id",
+                        "type": "string",
+                        "examples": [
+                            "z0AeVb6"
+                        ]
+                    },
+                    "attributes": {
+                        "id": "#attributes",
+                        "type": "object",
+                        "examples": [
+                            {
+                                "content-type": "Article",
+                                "url": "https://sites.google.com/atb.com/retailcredit/recredit-blog/loan-to-value?authuser=0",
+                                "title": "Loan-to-Value",
+                                "provider": "None",
+                                "content-duration": 363,
+                                "content-duration-type": "None",
+                                "is-internal": "True"
+                            }
+                        ],
+                        "properties": {
+                            "content-type": {
+                                "id": "#content-type",
+                                "type": ["null", "string"],
+                                "examples": [
+                                    "Article"
+                                ]
+                            },
+                            "url": {
+                                "id": "#url",
+                                "type": ["null", "string"],
+                                "examples": [
+                                    "https://sites.google.com/atb.com/retailcredit/recredit-blog/loan-to-value?authuser=0"
+                                ]
+                            },
+                            "title": {
+                                "id": "#title",
+                                "type": ["null", "string"],
+                                "examples": [
+                                    "Loan-to-Value"
+                                ]
+                            },
+                            "provider": {
+                                "id": "#provider",
+                                "type": ["null", "string"],
+                                "examples": [
+                                    "Udemy Business"
+                                ]
+                            },
+                            "content-duration": {
+                                "id": "#content-duration",
+                                "type": ["null","number"],
+                                "examples": [
+                                    363
+                                ]
+                            },
+                            "content-duration-type": {
+                                "id": "#content-duration-type",
+                                "type": ["null", "string"],
+                                "examples": [
+                                    "Minutes"
+                                ]
+                            },
+                            "is-internal": {
+                                "id": "#is-internal",
+                                "type": ["null", "boolean"],
+                                "examples": [
+                                    true
+                                ]
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    "links": {
+                        "id": "#links",
+                        "type": "object",
+                        "examples": [
+                            {
+                                "self": "https://api.degreed.com/api/v2/content/z0AeVb6"
+                            }
+                        ],
+                        "properties": {
+                            "self": {
+                                "id": "#self",
+                                "type": "string",
+                                "examples": [
+                                    "https://api.degreed.com/api/v2/content/z0AeVb6"
+                                ]
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                },
+                "additionalProperties": true
+            }
+        }
+    },
+    "additionalProperties": true
+}

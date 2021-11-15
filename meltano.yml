@@ -17,10 +17,39 @@ plugins:
     - name: start_date
       value: '2018-01-01T00:00:00Z'
     config:
-      start_date: '2018-01-01T00:00:00Z'
-      client_id: ${DEGREED_CLIENT_ID}
-      client_secret: ${DEGREED_CLIENT_SECRET}
+      start_date: '2021-11-14T00:00:00+00:00'
+      client_id: ${TAP_DEGREED_CLIENT_ID}
+      client_secret: ${TAP_DEGREED_CLIENT_SECRET}
+    select:
+    - completions.*
   loaders:
   - name: target-jsonl
     variant: andyh1203
     pip_url: target-jsonl
+  - name: target-bigquery
+    variant: adswerve
+    pip_url: git+https://github.com/adswerve/target-bigquery.git@v0.10.2
+  orchestrators:
+  - name: airflow
+    pip_url: psycopg2==2.8.6 apache-airflow[password]==2.1.2 --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.1.2/constraints-${MELTANO__PYTHON_VERSION}.txt
+    config:
+      webserver:
+        rbac: true
+        authenticate: true
+        auth_backend: airflow.contrib.auth.backends.password_auth
+  files:
+  - name: airflow
+    pip_url: git+https://gitlab.com/meltano/files-airflow.git
+schedules:
+- name: degreed-to-bigquery
+  extractor: tap-degreed
+  loader: target-bigquery
+  transform: skip
+  interval: '@daily'
+  start_date: 2021-10-01 00:00:00
+- name: degreed-to-bigquery-initial-backfill
+  extractor: tap-degreed
+  loader: target-bigquery
+  transform: skip
+  interval: '@daily'
+  start_date: 2021-09-01 00:00:00

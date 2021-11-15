@@ -1,0 +1,385 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id": "https://api.degreed.com/docs/#get-all-users",
+    "type": "object",
+    "examples": [
+        {
+            "type": "users",
+            "id": "b1GdOL",
+            "attributes": {
+                "employee-id": "E00001",
+                "first-name": "Dolly",
+                "last-name": "Parton",
+                "full-name": "Dolly Parton",
+                "organization-email": "DParton@atb.com",
+                "personal-email": "None",
+                "profile-visibility": "Organization",
+                "bio": "None",
+                "location": "None",
+                "profile-image-url": "dguser4XLV7M7",
+                "login-disabled": false,
+                "restricted": false,
+                "is-active-learner": false,
+                "permission-role": "Member",
+                "job-role": "Product Manager",
+                "alias-uid": "000d000111",
+                "preferred-language": "None",
+                "real-time-email-notification": "True",
+                "daily-digest-email": false,
+                "weekly-digest-email": "True",
+                "created-at": "2021-10-19T10:01:40.2467123",
+                "first-login-at": "2021-10-28T00:00:00",
+                "last-login-at": "2021-11-08T00:00:00",
+                "total-points": 0,
+                "daily-logins": 4
+            },
+            "links": {
+                "self": "https://api.degreed.com/api/v2/users/b1GdOL"
+            },
+            "relationships": [
+                {
+                    "manager": {
+                        "data": {
+                            "id": "BY9EkK",
+                            "type": "users"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "required": [],
+    "properties": {
+        "type": {
+            "id": "#/properties/type",
+            "type": "string",
+            "examples": [
+                "users"
+            ]
+        },
+        "id": {
+            "id": "#/properties/id",
+            "type": "string",
+            "examples": [
+                "b1GdOL"
+            ]
+        },
+        "attributes": {
+            "id": "#/properties/attributes",
+            "type": "object",
+            "examples": [
+                {
+                    "employee-id": "E00001",
+                    "first-name": "Dolly",
+                    "last-name": "Parton",
+                    "full-name": "Dolly Parton",
+                    "organization-email": "DParton@atb.com",
+                    "personal-email": "None",
+                    "profile-visibility": "Organization",
+                    "bio": "None",
+                    "location": "None",
+                    "profile-image-url": "dguser4XLV7M7",
+                    "login-disabled": false,
+                    "restricted": false,
+                    "is-active-learner": false,
+                    "permission-role": "Member",
+                    "job-role": "Product Manager",
+                    "alias-uid": "000d000111",
+                    "preferred-language": "None",
+                    "real-time-email-notification": "True",
+                    "daily-digest-email": false,
+                    "weekly-digest-email": "True",
+                    "created-at": "2021-10-19T10:01:40.2467123",
+                    "first-login-at": "2021-10-28T00:00:00",
+                    "last-login-at": "2021-11-08T00:00:00",
+                    "total-points": 0,
+                    "daily-logins": 4
+                }
+            ],
+            "required": [],
+            "properties": {
+                "employee-id": {
+                    "id": "#/properties/attributes/properties/employee-id",
+                    "type": "string",
+                    "examples": [
+                        "E00001"
+                    ]
+                },
+                "first-name": {
+                    "id": "#/properties/attributes/properties/first-name",
+                    "type": "string",
+                    "examples": [
+                        "Dolly"
+                    ]
+                },
+                "last-name": {
+                    "id": "#/properties/attributes/properties/last-name",
+                    "type": "string",
+                    "examples": [
+                        "Parton"
+                    ]
+                },
+                "full-name": {
+                    "id": "#/properties/attributes/properties/full-name",
+                    "type": "string",
+                    "examples": [
+                        "Dolly Parton"
+                    ]
+                },
+                "organization-email": {
+                    "id": "#/properties/attributes/properties/organization-email",
+                    "type": "string",
+                    "examples": [
+                        "DParton@atb.com"
+                    ]
+                },
+                "personal-email": {
+                    "id": "#/properties/attributes/properties/personal-email",
+                    "type": "string",
+                    "examples": [
+                        "None"
+                    ]
+                },
+                "profile-visibility": {
+                    "id": "#/properties/attributes/properties/profile-visibility",
+                    "type": "string",
+                    "examples": [
+                        "Organization"
+                    ]
+                },
+                "bio": {
+                    "id": "#/properties/attributes/properties/bio",
+                    "type": "string",
+                    "examples": [
+                        "None"
+                    ]
+                },
+                "location": {
+                    "id": "#/properties/attributes/properties/location",
+                    "type": "string",
+                    "examples": [
+                        "None"
+                    ]
+                },
+                "profile-image-url": {
+                    "id": "#/properties/attributes/properties/profile-image-url",
+                    "type": "string",
+                    "examples": [
+                        "dguser4XLV7M7"
+                    ]
+                },
+                "login-disabled": {
+                    "id": "#/properties/attributes/properties/login-disabled",
+                    "type": "boolean",
+                    "examples": [
+                        false
+                    ]
+                },
+                "restricted": {
+                    "id": "#/properties/attributes/properties/restricted",
+                    "type": "boolean",
+                    "examples": [
+                        false
+                    ]
+                },
+                "is-active-learner": {
+                    "id": "#/properties/attributes/properties/is-active-learner",
+                    "type": "boolean",
+                    "examples": [
+                        false
+                    ]
+                },
+                "permission-role": {
+                    "id": "#/properties/attributes/properties/permission-role",
+                    "type": "string",
+                    "examples": [
+                        "Member"
+                    ]
+                },
+                "job-role": {
+                    "id": "#/properties/attributes/properties/job-role",
+                    "type": "string",
+                    "examples": [
+                        "Product Manager"
+                    ]
+                },
+                "alias-uid": {
+                    "id": "#/properties/attributes/properties/alias-uid",
+                    "type": "string",
+                    "examples": [
+                        "000d000111"
+                    ]
+                },
+                "preferred-language": {
+                    "id": "#/properties/attributes/properties/preferred-language",
+                    "type": "string",
+                    "examples": [
+                        "None"
+                    ]
+                },
+                "real-time-email-notification": {
+                    "id": "#/properties/attributes/properties/real-time-email-notification",
+                    "type": "string",
+                    "examples": [
+                        "True"
+                    ]
+                },
+                "daily-digest-email": {
+                    "id": "#/properties/attributes/properties/daily-digest-email",
+                    "type": "boolean",
+                    "examples": [
+                        false
+                    ]
+                },
+                "weekly-digest-email": {
+                    "id": "#/properties/attributes/properties/weekly-digest-email",
+                    "type": "string",
+                    "examples": [
+                        "True"
+                    ]
+                },
+                "created-at": {
+                    "id": "#/properties/attributes/properties/created-at",
+                    "type": "string",
+                    "examples": [
+                        "2021-10-19T10:01:40.2467123"
+                    ]
+                },
+                "first-login-at": {
+                    "id": "#/properties/attributes/properties/first-login-at",
+                    "type": "string",
+                    "examples": [
+                        "2021-10-28T00:00:00"
+                    ]
+                },
+                "last-login-at": {
+                    "id": "#/properties/attributes/properties/last-login-at",
+                    "type": "string",
+                    "examples": [
+                        "2021-11-08T00:00:00"
+                    ]
+                },
+                "total-points": {
+                    "id": "#/properties/attributes/properties/total-points",
+                    "type": "integer",
+                    "examples": [
+                        0
+                    ]
+                },
+                "daily-logins": {
+                    "id": "#/properties/attributes/properties/daily-logins",
+                    "type": "integer",
+                    "examples": [
+                        4
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "links": {
+            "id": "#/properties/links",
+            "type": "object",
+            "examples": [
+                {
+                    "self": "https://api.degreed.com/api/v2/users/b1GdOL"
+                }
+            ],
+            "required": [],
+            "properties": {
+                "self": {
+                    "id": "#/properties/links/properties/self",
+                    "type": "string",
+                    "examples": [
+                        "https://api.degreed.com/api/v2/users/b1GdOL"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "relationships": {
+            "id": "#/properties/relationships",
+            "type": "array",
+            "examples": [
+                [
+                    {
+                        "manager": {
+                            "data": {
+                                "id": "BY9EkK",
+                                "type": "users"
+                            }
+                        }
+                    }
+                ]
+            ],
+            "additionalItems": false,
+            "items": {
+                "id": "#/properties/relationships/items",
+                "anyOf": [
+                    {
+                        "id": "#/properties/relationships/items/anyOf/0",
+                        "type": "object",
+                        "examples": [
+                            {
+                                "manager": {
+                                    "data": {
+                                        "id": "BY9EkK",
+                                        "type": "users"
+                                    }
+                                }
+                            }
+                        ],
+                        "required": [],
+                        "properties": {
+                            "manager": {
+                                "id": "#/properties/relationships/items/anyOf/0/properties/manager",
+                                "type": "object",
+                                "examples": [
+                                    {
+                                        "data": {
+                                            "id": "BY9EkK",
+                                            "type": "users"
+                                        }
+                                    }
+                                ],
+                                "required": [],
+                                "properties": {
+                                    "data": {
+                                        "id": "#/properties/relationships/items/anyOf/0/properties/manager/properties/data",
+                                        "type": "object",
+                                        "examples": [
+                                            {
+                                                "id": "BY9EkK",
+                                                "type": "users"
+                                            }
+                                        ],
+                                        "required": [],
+                                        "properties": {
+                                            "id": {
+                                                "id": "#/properties/relationships/items/anyOf/0/properties/manager/properties/data/properties/id",
+                                                "type": "string",
+                                                "examples": [
+                                                    "BY9EkK"
+                                                ]
+                                            },
+                                            "type": {
+                                                "id": "#/properties/relationships/items/anyOf/0/properties/manager/properties/data/properties/type",
+                                                "type": "string",
+                                                "examples": [
+                                                    "users"
+                                                ]
+                                            }
+                                        },
+                                        "additionalProperties": true
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}
