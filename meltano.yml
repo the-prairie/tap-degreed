@@ -17,9 +17,9 @@ plugins:
     - name: start_date
       value: '2018-01-01T00:00:00Z'
     config:
-      start_date: '2021-11-14T00:00:00+00:00'
-      client_id: ${TAP_DEGREED_CLIENT_ID}
-      client_secret: ${TAP_DEGREED_CLIENT_SECRET}
+      start_date: '2021-11-01'
+      client_id: a682964b65a8bf12
+      client_secret: dbdfccf3709f0f696fde111b6761bcdb
     select:
     - completions.*
   loaders:

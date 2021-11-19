@@ -3,7 +3,8 @@
 import pendulum
 from pathlib import Path
 from typing import Any, Dict, Generator, Optional, Union, List, Iterable
-
+import requests
+import backoff
 
 from singer_sdk.typing import (
     PropertiesList,
@@ -103,15 +104,113 @@ class CompletionsStream(DegreedStream):
 
     schema_filepath = SCHEMAS_DIR / "completions.json"
 
-    def get_url_params(
-            self, context: Optional[dict], next_page_token: Optional[Any]
-    ) -> Dict[str, Any]:
-        params = super().get_url_params(context, next_page_token)
-        params["filter[start_date]"] = self.config["start_date"]
-        params["filter[end_date]"] = self.config["start_date"]
     
+    def get_records(self, context: Optional[dict]) -> Generator[dict, None, None]:
         
-        return params
+        """ Get endpoint history.
+
+        #     Raises: 
+        #       ValueError: When parameter start_date is missing
+
+        #     Yields:
+        #       Generator[dict]: Yields Degreed endpoint over time range
+     
+        """
+    # Validate start_date value
+        self.logger.info('Creating stream for Degreed historical data pull')
+    
+        start_date_input: str = str(self.config.get("start_date"))
+        end_date_input: str = str(self.config.get('end_date', pendulum.yesterday().format("YYYY-MM-DD")))
+        self.logger.info(f"Start date is {start_date_input}")
+        self.logger.info(f"End date is {end_date_input}")
+
+        if not start_date_input:
+            raise ValueError('The parameter start_date is required.')
+        
+        # Set start date and end date
+        start_date  = pendulum.parse(start_date_input)
+        end_date = pendulum.parse(end_date_input)
+
+        self.logger.info(
+            f"Retrieving completions from {start_date.format('Y-M-D')} to {end_date.format('Y-M-D')}"
+        )
+
+ 
+
+        # Maximum date range between start_date and end_date is 7 days
+        # Split requests into weekly batches
+        batches: range = (pendulum.period(start_date, end_date).range('weeks'))
+
+        current_batch: int = 0
+        # Batches contain all start_dates, the end_date is 6 days 23:59 later
+        # E.g. 2021-01-01T00:00:00+0000 <--> 2021-01-07T23:59:59+0000
+        for start_date_batch in batches:
+            end_date_batch = (
+                start_date_batch.add(days=7, seconds=-1)
+                )
+
+
+            # Prevent the end_date from going into the future
+            if end_date_batch > end_date:
+                end_date_batch = end_date
+
+            # Convert the datetimes to datetime formats the api expects
+            start_date_str: str = start_date_batch.format('Y-M-D')
+            end_date_str: str = end_date_batch.format('Y-M-D')
+
+            current_batch += 1
+
+            self.logger.info(
+                    f'Parsing batch {current_batch}: {start_date_str} <--> '
+                    f'{end_date_str}',
+                )
+
+            params = self.get_url_params(context, next_page_token=None)
+
+            self.logger.info(
+                    f'Params: {params} '
+                )
+
+            
+           
+
+            params["filter[start_date]"] =  start_date_str
+            params["filter[end_date]"] = end_date_str
+            
+
+
+            next_page = True
+            while next_page:
+
+              response: requests.Response = requests.get(
+                  url=self.get_url(context),
+                  headers=self.http_headers,
+                  params=params
+              )
+
+            #   self.logger.info(
+            #     f'Response: {response['X-RateLimit-Remaining']}'
+            # )
+
+
+              response.raise_for_status()
+
+              response_data: dict = response.json()
+
+              data: list = response_data.get("data", [])
+
+              next_page_token = self.get_next_page_token(response, previous_token=None)
+
+              if next_page_token:
+                  params["next"] = next_page_token
+
+              else:
+                  next_page = False
+
+              yield from (
+                  completion for completion in data
+                  )
+    
 
     # def prepare_request_payload(self, context: Optional[dict], next_page_token: Optional[Any], **kwargs: dict) -> Generator[dict, None, None]:
     #     """ Get completions history.
